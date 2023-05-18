@@ -143,6 +143,7 @@ export const App = () => {
     <Layout>
       <BtnUp />
       <Searchbar onSearch={handelFormSearch} />
+      {error && <h1>{error} </h1>}
       <ImageGallery pictures={pictures} />
       {isLoading && <Loader />}
       {pictures.length >= 12 && <Button onClick={handleLoadMore} />}
