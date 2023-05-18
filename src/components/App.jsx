@@ -77,11 +77,11 @@ export class App extends Component {
     const { pictures, isLoading } = this.state;
     return (
       <Layout>
+        <BtnUp />
         <Searchbar onSearch={this.handelFormSearch} />
         <ImageGallery pictures={pictures} />
         {isLoading && <Loader />}
         {pictures.length >= 12 && <Button onClick={this.handleLoadMore} />}
-        <BtnUp />
         <GlobalStyle />
       </Layout>
     );
