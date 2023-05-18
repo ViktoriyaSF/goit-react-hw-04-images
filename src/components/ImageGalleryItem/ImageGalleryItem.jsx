@@ -1,49 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { ImageModal } from 'components/Modal/ImageModal';
 import { StyledImageGalleryItem } from './StyledImageGalleryItem';
 
-export class ImageGalleryItem extends Component {
-  //  selectedTags - для заповнення поля alt в модалці
-  state = {
-    selectedImg: null,
-    selectedTags: null,
-  };
+export const ImageGalleryItem = ({
+  picture: { webformatURL, largeImageURL, tags },
+}) => {
+  const [selectedImg, setSelectedImg] = useState(null);
+  const [selectedTags, setSelectedTags] = useState(null);
 
-  setSelectedImg = () => {
-    const {
-      picture: { largeImageURL, tags },
-    } = this.props;
-    this.setState({
-      selectedImg: largeImageURL,
-      selectedTags: tags,
-    });
-  };
-  closeModal = () => {
-    this.setState({ selectedImg: null });
-  };
-
-  render() {
-    const { selectedImg, selectedTag } = this.state;
-    const {
-      picture: { webformatURL, tags },
-    } = this.props;
-    return (
-      <StyledImageGalleryItem>
-        <img src={webformatURL} alt={tags} onClick={this.setSelectedImg} />
-        {selectedImg && (
-          <ImageModal
-            isOpen={selectedImg !== null}
-            onClose={this.closeModal}
-            image={selectedImg}
-            alt={selectedTag}
-          />
-        )}
-      </StyledImageGalleryItem>
-    );
-  }
-}
+  return (
+    <StyledImageGalleryItem>
+      <img
+        src={webformatURL}
+        alt={tags}
+        onClick={() => {
+          setSelectedImg(largeImageURL);
+          setSelectedTags(tags);
+        }}
+      />
+      {selectedImg && (
+        <ImageModal
+          isOpen={selectedImg !== null}
+          onClose={() => {
+            setSelectedImg(null);
+          }}
+          image={selectedImg}
+          alt={selectedTags}
+        />
+      )}
+    </StyledImageGalleryItem>
+  );
+};
 
 ImageGalleryItem.propTypes = {
   picture: PropTypes.shape({
