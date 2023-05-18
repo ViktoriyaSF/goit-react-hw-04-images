@@ -16,7 +16,6 @@ const customStyles = {
 Modal.setAppElement('#root');
 
 export const ImageModal = ({ isOpen, image, alt, onClose }) => {
-  console.log(image);
   return (
     <Overlay
       isOpen={isOpen}
